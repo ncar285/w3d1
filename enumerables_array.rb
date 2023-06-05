@@ -1,6 +1,7 @@
 
 class Array
-     def my_each(&block)
+
+    def my_each(&block)
         count = 0
         
         self.length.times do
@@ -36,14 +37,56 @@ class Array
         return true
     end
 
+    # def my_flatten    # [1 , 2, [5, [5, 5], 7 ]]
+
+
+    #     # flattened = []
+
+    #     return [self] if !self.is_a?(Array)   #  [5, 5]
+
+    #     flattened = []          
+
+    #    # [] + []
+
+    #     self.each{|ele| flattened +=  ele.my_flatten }   #[7]  +=   [5, [5, 5], 7 ].my_flatten ele.my_flatten
+    #     return flattened
+
+    # end
+
+
+    # def my_flatten(self)
+
+    #     return [self] if !data.is_a?(Array)
+    #     flattened = []          
+    #     self.each{|ele| flattened +=  my_flatten(ele)}
+    #     flattened
+
+    # end
+
+
+
     def my_flatten
-        return self[] if self.empty?
-            return self.pop + self.my_flatten
-            
+
+        return [self] if !self.is_a?(Array)
+        flattened = []          
+        self.each{|ele| flattened +=  my_flatten(ele)}
+        flattened
+
     end
 
 
-   
 
     
 end
+
+"""
+
+[1, 2, 3, [4, [5, 6]], [[[7]], 8]].my_flatten
+
+[1, 2, [3, [4,5]]].my_flatten
+
+load 'enumerables_array.rb'
+my_flatten(   [1, 2, [3, [4,5]]]   )
+
+load 'enumerables_array.rb'
+"""
