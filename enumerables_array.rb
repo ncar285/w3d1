@@ -38,12 +38,8 @@ class Array
     end
 
     # def my_flatten    # [1 , 2, [5, [5, 5], 7 ]]
-
-
     #     # flattened = []
-
     #     return [self] if !self.is_a?(Array)   #  [5, 5]
-
     #     flattened = []          
 
     #    # [] + []
@@ -55,24 +51,51 @@ class Array
 
 
     # def my_flatten(self)
-
     #     return [self] if !data.is_a?(Array)
     #     flattened = []          
     #     self.each{|ele| flattened +=  my_flatten(ele)}
     #     flattened
-
     # end
 
 
 
     def my_flatten
-
-        return [self] if !self.is_a?(Array)
         flattened = []          
-        self.each{|ele| flattened +=  my_flatten(ele)}
+        self.my_each do |ele| 
+            if ele.is_a?(Array)
+                flattened +=  ele.my_flatten
+            else
+                 flattened << ele
+            end
+        end
         flattened
+    end
+
+    def my_zip(*args)
+        result_arr = []
+        
+        (0...self.length).each do |i|
+            result_arr << [self[i]] + args.map { |arr| arr[i] }.flatten
+        end
+        result_arr
+    end
+
+    def my_rotate(num =1)
+        temp = self
+        if num > 0
+           num.times { temp = temp[1..-1] + [temp[0]] }
+        else
+            -1 * num.times { temp = [temp[-1]] + temp[0..-2]}
+        end
+        temp
 
     end
+
+
+
+
+
+
 
 
 
